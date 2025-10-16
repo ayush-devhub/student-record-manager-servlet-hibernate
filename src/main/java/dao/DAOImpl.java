@@ -19,7 +19,7 @@ public class DAOImpl implements DAO {
 
 
     @Override
-    public boolean addStudent(Student student) throws SQLException {
+    public boolean addStudent(Student student) throws SQLException, ClassNotFoundException {
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(ADD_QUERY);) {
             ps.setString(1, student.getName());
@@ -30,9 +30,9 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public boolean updateStudent(Student student) throws SQLException {
+    public boolean updateStudent(Student student) throws SQLException, ClassNotFoundException {
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY);) {
+             PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY)) {
             ps.setString(1, student.getName());
             ps.setString(2, student.getEmail());
             ps.setString(3, student.getCourse());
@@ -42,16 +42,16 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public boolean deleteStudent(int id) throws SQLException {
+    public boolean deleteStudent(int id) throws SQLException, ClassNotFoundException {
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(DELETE_QUERY);) {
+             PreparedStatement ps = conn.prepareStatement(DELETE_QUERY)) {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         }
     }
 
     @Override
-    public List<Student> getAllStudents() throws SQLException {
+    public List<Student> getAllStudents() throws SQLException, ClassNotFoundException {
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_QUERY);
              ResultSet rs = ps.executeQuery()
