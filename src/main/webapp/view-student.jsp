@@ -100,6 +100,27 @@
         }
         .add-link { background-color: #28a745; }
         .add-link:hover { background-color: #218838; }
+
+
+        .link-button {
+            background: none;
+            border: none;
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: inherit; /* Make font size same as table text */
+            padding: 0;
+            font-family: inherit; /* Make font family same as table text */
+            font-weight: 500;
+        }
+
+        .link-button.delete {
+            color: #dc3545;
+        }
+
+        .link-button:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -143,8 +164,15 @@
                     <td>${student.email}</td>
                     <td>${student.course}</td>
                     <td class="actions">
-                        <a href="edit-student-servlet?id=${student.id}">Edit</a>
-                        <a href="delete-student-servlet?id=${student.id}" class="delete">Delete</a>
+<%--                        <form action="update-student-servlet" method="post" style="display: inline;">--%>
+<%--                            <input type="hidden" name="id" value="${student.id}">--%>
+<%--                            <button type="submit" class="link-button">Edit</button>--%>
+<%--                        </form>--%>
+
+                        <form action="delete-student-servlet" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="${student.id}">
+                            <button type="submit" class="link-button delete">Delete</button>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>
