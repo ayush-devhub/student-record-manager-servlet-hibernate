@@ -1,16 +1,122 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ayushbaghel
-  Date: 16/10/25
-  Time: 10:57 pm
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background: #ffffff;
+            padding: 2.5rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #666;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        input[type="number"], input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"], input[type="text"], input[type="email"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #ffc107;
+            border: none;
+            border-radius: 8px;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #e0a800;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
+    <h1>Update a Student Record ✏️</h1>
+    <p>Enter the ID of the student you wish to edit.</p>
+
+    <form action="update-student-servlet" method="post">
+        <div class="form-group">
+            <label for="id">Student ID:</label>
+            <input type="number" id="id" name="id" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="course">Course:</label>
+            <input type="text" id="course" name="course" required>
+        </div>
+        <button type="submit" class="submit-btn">Find Student</button>
+    </form>
+
+    <a href="index.jsp" class="back-link">← Back to Menu</a>
+</div>
 
 </body>
 </html>
