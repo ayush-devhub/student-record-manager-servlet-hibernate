@@ -9,7 +9,8 @@ public class DBUtil {
     private static String USER = "root";
     private static String PASSWORD = "mamta93@";
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
