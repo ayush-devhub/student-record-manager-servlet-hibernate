@@ -12,10 +12,10 @@ import java.util.List;
 
 public class DAOImpl implements DAO {
 
-    private String ADD_QUERY = "INSERT INTO student(name, email, course) VALUES(?,?,?)";
-    private String UPDATE_QUERY = "UPDATE student SET name=?, email=?, course=? WHERE id=?";
-    private String DELETE_QUERY = "DELETE FROM student WHERE id=?";
-    private String GET_ALL_QUERY = "SELECT * FROM student";
+    private String ADD_QUERY = "INSERT INTO students(name, email, course) VALUES(?,?,?);";
+    private String UPDATE_QUERY = "UPDATE students SET name=?, email=?, course=? WHERE id=?;";
+    private String DELETE_QUERY = "DELETE FROM students WHERE id=?;";
+    private String GET_ALL_QUERY = "SELECT * FROM students;";
 
 
     @Override
