@@ -1,10 +1,24 @@
 package model;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "students")
 public class Student {
-    private int id ;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String email;
     private String course;
+
+    // A no-arg constructor is required by Hibernate
+    public Student() {
+    }
 
     public Student(int id, String name, String email, String course) {
         this.id = id;
