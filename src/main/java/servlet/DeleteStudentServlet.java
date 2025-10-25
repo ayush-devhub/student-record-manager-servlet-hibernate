@@ -1,30 +1,34 @@
 package servlet;
 
-import dao.DAOImpl;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import model.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import utility.HibernateUtil;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/delete-student-servlet")
 public class DeleteStudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         int id = Integer.parseInt(request.getParameter("id"));
 
-        try{
-            DAOImpl dao = new DAOImpl();
-            if(dao.deleteStudent(id)){
-                HttpSession session = request.getSession();
-                session.setAttribute("message", "Student deleted successfully");
-                response.sendRedirect("view-student-servlet");
+        try (Session session = sessionFactory.openSession()) {
+
+            Transaction tx = session.beginTransaction();            // Get the student object to delete
+            Student studentToDelete = session.get(Student.class, id);
+
+            if (studentToDelete != null) {
+                session.remove(studentToDelete);
             }
 
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            tx.commit();
+            sessionFactory.close();
         }
     }
 }

@@ -1,35 +1,42 @@
 package servlet;
 
-import dao.DAOImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import model.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import utility.HibernateUtil;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/update-student-servlet")
 public class UpdateStudentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // Parsing the Form Value
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String course  = request.getParameter("course");
+        String course = request.getParameter("course");
 
-        try{
-            DAOImpl dao = new DAOImpl();
-            if(dao.updateStudent(new Student(id, name, email, course))){
-            HttpSession session = request.getSession();
-            session.setAttribute("message", "Student updated successfully");
-            response.sendRedirect("view-student-servlet");
+        // Getting a SessionFactory Reference
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            Student student = session.get(Student.class, id);
+            if (student != null) {
+                student.setName(name);
+                student.setEmail(email);
+                student.setCourse(course);
+                session.merge(student);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            tx.commit();
+            sessionFactory.close();
         }
-
     }
 }
